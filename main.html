@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quasbly.com</title>
+</head>
+<body>
+   <h1 style="text-align: center; font-size: 40px;">Quasbly.com</h1>
+
+<div style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+    
+    <!-- Information Section -->
+    <div style="
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: #f9fafb;
+        border-radius: 12px;
+    ">
+        <h1 style="
+            margin: 0 0 20px 0;
+            font-size: 36px;
+            font-weight: 700;
+            color: #1f2937;
+        ">
+            Your Complete Book Review Library
+        </h1>
+        
+        <p style="
+            margin: 0 0 16px 0;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #374151;
+        ">
+            We're building the most comprehensive book review platform on the web. Whether you're searching for the latest bestseller or a rare out-of-print classic, we'll have reviews and insights for every book you're curious about.
+        </p>
+        
+        <p style="
+            margin: 0;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #374151;
+        ">
+            Our collection includes reviews for both currently available titles and hard-to-find out-of-print books, giving you access to literary criticism and reader perspectives across the entire spectrum of published works.
+        </p>
+    </div>
+
+    <!-- Signup Form -->
+    <div style="
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    ">
+        <h2 style="
+            margin: 0 0 12px 0;
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+        ">
+            Be the First to Know
+        </h2>
+        
+        <p style="
+            margin: 0 0 24px 0;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #6b7280;
+        ">
+            Join our waiting list to get notified when we launch and gain early access to thousands of book reviews.
+        </p>
+
+        <form action="" id="signupForm">
+            <input 
+                type="email" 
+                placeholder="Enter your email"
+                required
+                id="emailInput"
+                style="
+                    width: 100%;
+                    padding: 12px 16px;
+                    font-size: 16px;
+                    border: 2px solid #e5e7eb;
+                    border-radius: 8px;
+                    margin-bottom: 12px;
+                    box-sizing: border-box;
+                    transition: border-color 0.3s ease;
+                "
+                onfocus="this.style.borderColor='#3b82f6'; this.style.outline='none'"
+                onblur="this.style.borderColor='#e5e7eb'"
+            >
+            <button 
+                type="submit"
+                style="
+                    width: 100%;
+                    padding: 12px 16px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: white;
+                    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                "
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(59, 130, 246, 0.3)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'"
+            >
+                Join the Waiting List
+            </button>
+        </form>
+        
+        <p style="
+            margin: 16px 0 0 0;
+            font-size: 13px;
+            color: #9ca3af;
+        ">
+            No spam, unsubscribe anytime.
+        </p>
+    </div>
+
+</div>
+
+
+</div>
+</body>
+
+<script>
+const form = document.getElementById("signupForm");
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("emailInput").value;
+
+    const res = await fetch("http://localhost:3000/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+    alert(data.message);
+    form.reset();
+});
+</script>
+</html>
