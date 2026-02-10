@@ -28,7 +28,7 @@ db.run(`CREATE TABLE IF NOT EXISTS waiting_list (
 
 // ✅ Added: Root route
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(__dirname, "public", "main.html"));
 });
 
 // API endpoint to handle email submissions
@@ -62,3 +62,4 @@ app.get("/list", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`); // ✅ Fixed syntax
 });
+
