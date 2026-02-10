@@ -3,9 +3,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
-
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // ✅ Fixed: Use environment PORT
 
 // Middleware
 app.use(cors());
@@ -27,14 +26,18 @@ db.run(`CREATE TABLE IF NOT EXISTS waiting_list (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )`);
 
+// ✅ Added: Root route
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 // API endpoint to handle email submissions
 app.post("/signup", (req, res) => {
     const { email } = req.body;
-
     if (!email) {
         return res.status(400).json({ message: "Email is required." });
     }
-
+    
     // Insert email into database
     const query = `INSERT INTO waiting_list (email) VALUES (?)`;
     db.run(query, [email], function(err) {
@@ -44,19 +47,18 @@ app.post("/signup", (req, res) => {
             }
             return res.status(500).json({ message: "Database error." });
         }
-
         res.json({ message: "Thanks for joining the waiting list!" });
     });
 });
 
 // Optional: route to view the waiting list
 app.get("/list", (req, res) => {
-    db.all(`SELECT * FROM waiting_list ORDER BY created_at DESC`, [], (err, rows) => {
+    db.all("SELECT * FROM waiting_list ORDER BY created_at DESC", [], (err, rows) => { // ✅ Fixed syntax
         if (err) return res.status(500).json({ message: "Database error." });
         res.json(rows);
     });
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`); // ✅ Fixed syntax
 });
